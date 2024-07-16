@@ -14,6 +14,16 @@
       },
       {
         "type": "image",
+        "key": "playTextDefault",
+        "url": "./assets/user-interface/PlayText/Default.png"
+      },
+      {
+        "type": "image",
+        "key": "playTextHover",
+        "url": "./assets/user-interface/PlayText/Hover.png"
+      },
+      {
+        "type": "image",
         "key": "tankBlue",
         "url": "./assets/sprites/tank-blue.png"
       },

@@ -13,7 +13,7 @@ export class GameScene extends Phaser.Scene {
   private player: Player;
   private enemies: Phaser.GameObjects.Group;
   private obstacles: Phaser.GameObjects.Group;
-
+  
   private target: Phaser.Math.Vector2;
 
   constructor() {

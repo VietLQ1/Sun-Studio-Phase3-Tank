@@ -15,7 +15,7 @@ export class Bullet extends Phaser.GameObjects.Image {
 
   private initImage(): void {
     // variables
-    this.bulletSpeed = 1000;
+    this.bulletSpeed = 800;
 
     // image
     this.setOrigin(0.5, 0.5);

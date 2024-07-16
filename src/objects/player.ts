@@ -138,7 +138,7 @@ export class Player extends Phaser.GameObjects.Image implements ObserverPattern.
 
   private handleShooting(): void {
     if (this.cursors.leftButtonDown() && this.scene.time.now > this.lastShoot) {
-      this.scene.cameras.main.shake(20, 0.005);
+      this.scene.cameras.main.shake(10, 0.0025);
       this.scene.tweens.add({
         targets: this,
         props: { alpha: 0.8 },
