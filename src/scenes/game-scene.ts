@@ -2,8 +2,10 @@ import { Player } from '../objects/player';
 import { Enemy } from '../objects/enemy';
 import { Obstacle } from '../objects/obstacles/obstacle';
 import { Bullet } from '../objects/bullet';
+import { InputHandler } from '../input/InputHandler';
 
 export class GameScene extends Phaser.Scene {
+  private InputHandler: InputHandler;
   private map: Phaser.Tilemaps.Tilemap;
   private tileset: Phaser.Tilemaps.Tileset;
   private layer: Phaser.Tilemaps.TilemapLayer;
@@ -89,7 +91,8 @@ export class GameScene extends Phaser.Scene {
         undefined
       );
     }, this);
-
+    this.InputHandler = new InputHandler(this);
+    this.InputHandler.attach(this.player);
     this.cameras.main.startFollow(this.player);
   }
 
@@ -160,7 +163,7 @@ export class GameScene extends Phaser.Scene {
     if (bullet instanceof Bullet && player instanceof Player)
     {
       bullet.destroy();
-      player.updateHealth();
+      // player.updateHealth();
     }
     // bullet.destroy();
     // player.updateHealth();
