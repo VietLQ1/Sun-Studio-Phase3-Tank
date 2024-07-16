@@ -29,9 +29,11 @@ export class Button extends Phaser.GameObjects.Image
     }
     protected onOver(): void
     {
+        this.setTexture(this.overTexture);
     }
     protected onOut(): void
     {
+        this.setTexture(this.defaultTexture);
     }
     protected onDown(): void
     {

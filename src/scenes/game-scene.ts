@@ -4,7 +4,9 @@ import { Obstacle } from '../objects/obstacles/obstacle';
 import { Bullet } from '../objects/bullet';
 import { InputHandler } from '../input/InputHandler';
 
+enum gameState { PLAYING, PAUSED, GAMEOVER }
 export class GameScene extends Phaser.Scene {
+  private gameState: gameState;
   private InputHandler: InputHandler;
   private map: Phaser.Tilemaps.Tilemap;
   private tileset: Phaser.Tilemaps.Tileset;
@@ -13,7 +15,7 @@ export class GameScene extends Phaser.Scene {
   private player: Player;
   private enemies: Phaser.GameObjects.Group;
   private obstacles: Phaser.GameObjects.Group;
-  
+
   private target: Phaser.Math.Vector2;
 
   constructor() {
@@ -97,9 +99,19 @@ export class GameScene extends Phaser.Scene {
     this.InputHandler = new InputHandler(this);
     this.InputHandler.attach(this.player);
     this.cameras.main.startFollow(this.player);
+    this.gameState = gameState.PLAYING;
+    this.input.keyboard!.on('keydown-SPACE', () => {
+      if (this.gameState === gameState.PLAYING) {
+        console.log('pause');
+        this.pauseGame();
+      } else if (this.gameState === gameState.PAUSED) {
+        this.resumeGame();
+      }
+    });
   }
 
   update(): void {
+    if (this.gameState !== gameState.PLAYING) return;
     this.player.update();
 
     this.enemies.getChildren().forEach((enemy: Phaser.GameObjects.GameObject) => {
@@ -116,6 +128,49 @@ export class GameScene extends Phaser.Scene {
           (angle + Math.PI / 2) * Phaser.Math.RAD_TO_DEG;
       }
     }, this);
+  }
+  public pauseGame(): void {
+    this.gameState = gameState.PAUSED;
+    let body = this.player.body as Phaser.Physics.Arcade.Body;
+    body.setVelocity(0);
+    this.tweens.pauseAll();
+    let pBullets = this.player.getBullets().getChildren() as Bullet[];
+    pBullets.forEach((bullet) => {
+      bullet.body.setVelocity(0);
+    });
+    let eBullets = this.enemies.getChildren() as Enemy[];
+    eBullets.forEach((enemy) => {
+      let bullets = enemy.getBullets().getChildren() as Bullet[];
+      bullets.forEach((bullet) => {
+        bullet.body.setVelocity(0);
+      });
+    });
+  }
+  public resumeGame(): void {
+    this.gameState = gameState.PLAYING;
+    this.tweens.resumeAll();
+    let pBullets = this.player.getBullets().getChildren() as Bullet[];
+    pBullets.forEach((bullet) => {
+      this.physics.velocityFromRotation(
+        bullet.rotation - Math.PI / 2,
+        800,
+        bullet.body.velocity
+      );
+    });
+    let eBullets = this.enemies.getChildren() as Enemy[];
+    eBullets.forEach((enemy) => {
+      let bullets = enemy.getBullets().getChildren() as Bullet[];
+      bullets.forEach((bullet) => {
+        this.physics.velocityFromRotation(
+          bullet.rotation - Math.PI / 2,
+          800,
+          bullet.body.velocity
+        );
+      });
+    });
+  }
+  public gameOver(): void {
+    this.gameState = gameState.GAMEOVER;
   }
 
   private convertObjects(): void {

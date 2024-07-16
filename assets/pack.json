@@ -24,6 +24,16 @@
       },
       {
         "type": "image",
+        "key": "pauseDefault",
+        "url": "./assets/user-interface/Pause/Default.png"
+      },
+      {
+        "type": "image",
+        "key": "pauseHover",
+        "url": "./assets/user-interface/Pause/Hover.png"
+      },
+      {
+        "type": "image",
         "key": "tankBlue",
         "url": "./assets/sprites/tank-blue.png"
       },
