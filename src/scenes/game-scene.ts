@@ -110,7 +110,9 @@ export class GameScene extends Phaser.Scene {
   public resumeGame(): void {
     this.hidePausedUI();
     this.gameState = gameState.PLAYING;
-    this.tweens.resumeAll();
+    for (let i = 0; i < this.tweens.getTweens().length; i++) {
+      this.tweens.getTweens()[i].resume();
+    }
     let pBullets = this.player.getBullets().getChildren() as Bullet[];
     pBullets.forEach((bullet) => {
       this.physics.velocityFromRotation(
