@@ -22,7 +22,10 @@ export class GameScene extends Phaser.Scene {
     });
   }
 
-  init(): void {}
+  init(): void {
+    this.physics.world.setFPS(144);
+    // console.log(this.physics.world.fps);
+  }
 
   create(): void {
     // create tilemap from tiled JSON
