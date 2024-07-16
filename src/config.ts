@@ -8,7 +8,7 @@ export const GameConfig: Phaser.Types.Core.GameConfig = {
   version: '0.0.1',
   width: 1600,
   height: 1200,
-  zoom: 0.6,
+  zoom: 1,
   type: Phaser.AUTO,
   parent: 'game',
   scene: [BootScene, MenuScene, GameScene],
@@ -22,5 +22,9 @@ export const GameConfig: Phaser.Types.Core.GameConfig = {
     }
   },
   backgroundColor: '#000000',
-  render: { antialias: true }
+  render: { antialias: true },
+  scale: {
+    mode: Phaser.Scale.ScaleModes.FIT,
+    autoCenter: Phaser.Scale.Center.CENTER_BOTH
+  }
 };
