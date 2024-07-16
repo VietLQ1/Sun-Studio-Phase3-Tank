@@ -8,6 +8,7 @@ export class PauseButton extends Button {
         this.overTexture = overTexture;
     }
     onDown() {
+        super.onDown();
         if (this.scene instanceof GameScene)
         {
             this.scene.pauseGame();

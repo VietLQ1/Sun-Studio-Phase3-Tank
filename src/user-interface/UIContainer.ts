@@ -11,19 +11,25 @@ export class UIContainer extends Phaser.GameObjects.Container {
     }
     private initContainer() {
         // this.displayOriginX
-        this.setDepth(2);
+        this.setDepth(3);
     }
-    public addText(x: number, y: number, text: string, style: Phaser.Types.GameObjects.Text.TextStyle) {
-        const newText = this.scene.add.text(x, y, text, style);
+    public addText(x: number, y: number, text: string, style: Phaser.Types.GameObjects.Text.TextStyle) : Phaser.GameObjects.Text {
+        const newText = this.scene.add.text(x, y, text, style).setOrigin(0, 0).setScrollFactor(0);
         this.textList.push(newText);
         this.add(newText);
+        return newText;
     }
-    public addImage(x: number, y: number, texture: string, frame?: string | number) {
-        const newImage = this.scene.add.image(x, y, texture, frame);
+    public addImage(x: number, y: number, texture: string, frame?: string | number, width?: number, height?: number): Phaser.GameObjects.Image {
+        const newImage = this.scene.add.image(x, y, texture, frame).setOrigin(0, 0).setScrollFactor(0);
         this.imageList.push(newImage);
         this.add(newImage);
+        if (width && height) {
+            newImage.displayWidth = width;
+            newImage.displayHeight = height;
+        }
+        return newImage;
     }
-    public addButton(button: Button) {
+    public addButton(button: Button): void {
         button.setScrollFactor(0);
         console.log(button.scrollFactorX, button.scrollFactorY);
         this.buttonList.push(button);

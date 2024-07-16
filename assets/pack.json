@@ -14,6 +14,11 @@
       },
       {
         "type": "image",
+        "key": "board",
+        "url": "./assets/user-interface/Board.png"
+      },
+      {
+        "type": "image",
         "key": "playTextDefault",
         "url": "./assets/user-interface/PlayText/Default.png"
       },
@@ -31,6 +36,16 @@
         "type": "image",
         "key": "pauseHover",
         "url": "./assets/user-interface/Pause/Hover.png"
+      },
+      {
+        "type": "image",
+        "key": "resumeDefault",
+        "url": "./assets/user-interface/Play/Default.png"
+      },
+      {
+        "type": "image",
+        "key": "resumeHover",
+        "url": "./assets/user-interface/Play/Hover.png"
       },
       {
         "type": "image",

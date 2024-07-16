@@ -6,6 +6,7 @@ import { InputHandler } from '../input/InputHandler';
 import { UIContainer } from '../user-interface/UIContainer';
 import { PauseButton } from '../user-interface/PauseButton';
 import { GameConfig } from '../config';
+import { ResumeButton } from '../user-interface/ResumeButton';
 
 enum gameState { PLAYING, PAUSED, GAMEOVER }
 export class GameScene extends Phaser.Scene {
@@ -20,6 +21,7 @@ export class GameScene extends Phaser.Scene {
   private obstacles: Phaser.GameObjects.Group;
 
   private UIContainer: UIContainer;
+  private pausedUI: UIContainer;
 
   constructor() {
     super({
@@ -56,14 +58,14 @@ export class GameScene extends Phaser.Scene {
     this.InputHandler.attach(this.player);
     this.cameras.main.startFollow(this.player);
     this.gameState = gameState.PLAYING;
-    this.input.keyboard!.on('keydown-SPACE', () => {
-      if (this.gameState === gameState.PLAYING) {
-        console.log('pause');
-        this.pauseGame();
-      } else if (this.gameState === gameState.PAUSED) {
-        this.resumeGame();
-      }
-    });
+    // this.input.keyboard!.on('keydown-SPACE', () => {
+    //   if (this.gameState === gameState.PLAYING) {
+    //     console.log('pause');
+    //     this.pauseGame();
+    //   } else if (this.gameState === gameState.PAUSED) {
+    //     this.resumeGame();
+    //   }
+    // });
   }
 
   update(): void {
@@ -89,7 +91,10 @@ export class GameScene extends Phaser.Scene {
     this.gameState = gameState.PAUSED;
     let body = this.player.body as Phaser.Physics.Arcade.Body;
     body.setVelocity(0);
-    this.tweens.pauseAll();
+    for (let i = 0; i < this.tweens.getTweens().length; i++) {
+      this.tweens.getTweens()[i].pause();
+    }
+    this.showPausedUI();
     let pBullets = this.player.getBullets().getChildren() as Bullet[];
     pBullets.forEach((bullet) => {
       bullet.body.setVelocity(0);
@@ -103,6 +108,7 @@ export class GameScene extends Phaser.Scene {
     });
   }
   public resumeGame(): void {
+    this.hidePausedUI();
     this.gameState = gameState.PLAYING;
     this.tweens.resumeAll();
     let pBullets = this.player.getBullets().getChildren() as Bullet[];
@@ -226,6 +232,17 @@ export class GameScene extends Phaser.Scene {
       'pauseHover'
     ).setOrigin(1, 0);
     this.UIContainer.addButton(pauseBtn);
+    this.pausedUI = new UIContainer(this, 0, 0);
+    this.pausedUI.addImage(0, 0, 'board', undefined, GameConfig.width as number, GameConfig.height as number);
+    let resumeBtn = new ResumeButton(
+      {
+        scene: this,
+        x: GameConfig.width as number / 2,
+        y: GameConfig.height as number / 2,
+        texture: 'resumeDefault',
+    }, 'resumeHover');
+    this.pausedUI.addButton(resumeBtn);
+    this.hidePausedUI();
   }
   private bulletHitLayer(bullet: any): void {
     if (bullet instanceof Bullet)
@@ -255,5 +272,33 @@ export class GameScene extends Phaser.Scene {
     }
     // bullet.destroy();
     // enemy.updateHealth();
+  }
+  private hidePausedUI(): void {
+    this.pausedUI.disableInteractive();
+    this.tweens.add({
+      targets: this.pausedUI,
+      y: GameConfig.height as number,
+      alpha: 0,
+      duration: 150,
+      ease: 'Sine.easeInOut',
+    }).on('complete', () => {
+      console.log('hiding paused UI');
+      this.UIContainer.setVisible(true);
+      this.UIContainer.setInteractive();
+    });
+  }
+  private showPausedUI(): void {
+    this.UIContainer.disableInteractive();
+    this.UIContainer.setVisible(false);
+    this.tweens.add({
+      targets: this.pausedUI,
+      y: 0,
+      alpha: 1,
+      duration: 200,
+      ease: 'Power3',
+    }).on('complete', () => {
+      console.log('showing paused UI');
+      this.pausedUI.setInteractive();
+    });
   }
 }
