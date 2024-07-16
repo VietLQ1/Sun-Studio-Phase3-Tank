@@ -3,6 +3,9 @@ import { Enemy } from '../objects/enemy';
 import { Obstacle } from '../objects/obstacles/obstacle';
 import { Bullet } from '../objects/bullet';
 import { InputHandler } from '../input/InputHandler';
+import { UIContainer } from '../user-interface/UIContainer';
+import { PauseButton } from '../user-interface/PauseButton';
+import { GameConfig } from '../config';
 
 enum gameState { PLAYING, PAUSED, GAMEOVER }
 export class GameScene extends Phaser.Scene {
@@ -16,7 +19,7 @@ export class GameScene extends Phaser.Scene {
   private enemies: Phaser.GameObjects.Group;
   private obstacles: Phaser.GameObjects.Group;
 
-  private target: Phaser.Math.Vector2;
+  private UIContainer: UIContainer;
 
   constructor() {
     super({
@@ -47,55 +50,8 @@ export class GameScene extends Phaser.Scene {
     });
     this.convertObjects();
 
-    // collider layer and obstacles
-    this.physics.add.collider(this.player, this.layer);
-    this.physics.add.collider(this.player, this.obstacles);
-
-    // collider for bullets
-    this.physics.add.collider(
-      this.player.getBullets(),
-      this.layer,
-      this.bulletHitLayer,
-      undefined,
-      this
-    );
-
-    this.physics.add.collider(
-      this.player.getBullets(),
-      this.obstacles,
-      this.bulletHitObstacles,
-      undefined,
-      this
-    );
-
-    this.enemies.getChildren().forEach((enemy: Phaser.GameObjects.GameObject) => {
-      this.physics.add.overlap(
-        this.player.getBullets(),
-        enemy,
-        this.playerBulletHitEnemy,
-        undefined,
-        this
-      );
-      this.physics.add.overlap(
-        (enemy as Enemy).getBullets(),
-        this.player,
-        this.enemyBulletHitPlayer,
-        undefined
-      );
-
-      this.physics.add.collider(
-        (enemy as Enemy).getBullets(),
-        this.obstacles,
-        this.bulletHitObstacles,
-        undefined
-      );
-      this.physics.add.collider(
-        (enemy as Enemy).getBullets(),
-        this.layer,
-        this.bulletHitLayer,
-        undefined
-      );
-    }, this);
+    this.initPhysics();
+    this.createUI();
     this.InputHandler = new InputHandler(this);
     this.InputHandler.attach(this.player);
     this.cameras.main.startFollow(this.player);
@@ -207,6 +163,70 @@ export class GameScene extends Phaser.Scene {
     });
   }
 
+  private initPhysics(): void {
+    // collider layer and obstacles
+    this.physics.add.collider(this.player, this.layer);
+    this.physics.add.collider(this.player, this.obstacles);
+
+    // collider for bullets
+    this.physics.add.collider(
+      this.player.getBullets(),
+      this.layer,
+      this.bulletHitLayer,
+      undefined,
+      this
+    );
+
+    this.physics.add.collider(
+      this.player.getBullets(),
+      this.obstacles,
+      this.bulletHitObstacles,
+      undefined,
+      this
+    );
+
+    this.enemies.getChildren().forEach((enemy: Phaser.GameObjects.GameObject) => {
+      this.physics.add.overlap(
+        this.player.getBullets(),
+        enemy,
+        this.playerBulletHitEnemy,
+        undefined,
+        this
+      );
+      this.physics.add.overlap(
+        (enemy as Enemy).getBullets(),
+        this.player,
+        this.enemyBulletHitPlayer,
+        undefined
+      );
+
+      this.physics.add.collider(
+        (enemy as Enemy).getBullets(),
+        this.obstacles,
+        this.bulletHitObstacles,
+        undefined
+      );
+      this.physics.add.collider(
+        (enemy as Enemy).getBullets(),
+        this.layer,
+        this.bulletHitLayer,
+        undefined
+      );
+    }, this);
+  }
+  private createUI(): void {
+    this.UIContainer = new UIContainer(this, 0, 0);
+    let pauseBtn = new PauseButton(
+      {
+        scene: this,
+        x: GameConfig.width as number,
+        y: 0,
+        texture: 'pauseDefault',
+      },
+      'pauseHover'
+    ).setOrigin(1, 0);
+    this.UIContainer.addButton(pauseBtn);
+  }
   private bulletHitLayer(bullet: any): void {
     if (bullet instanceof Bullet)
       bullet.destroy();
