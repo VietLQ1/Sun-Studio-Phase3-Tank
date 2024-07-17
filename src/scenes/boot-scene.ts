@@ -41,6 +41,9 @@ export class BootScene extends Phaser.Scene {
 
     // load our package
     this.load.pack('preload', './assets/pack.json', 'preload');
+    this.load.audio('gameBGM', 'assets/audio/GameBGM.wav');
+    this.load.audio('shootSound', 'assets/audio/shotFX.mp3');
+    this.load.audio('explosionSound', 'assets/audio/explodeFX.mp3');
   }
 
   update(): void {

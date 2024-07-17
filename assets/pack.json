@@ -142,6 +142,31 @@
         "type": "image",
         "key": "treeLarge",
         "url": "./assets/obstacles/tree-large.png"
+      },
+      {
+        "type": "image",
+        "key": "explosion1",
+        "url": "./assets/sprites/explosion1.png"
+      },
+      {
+        "type": "image",
+        "key": "explosion2",
+        "url": "./assets/sprites/explosion2.png"
+      },
+      {
+        "type": "image",
+        "key": "explosion3",
+        "url": "./assets/sprites/explosion3.png"
+      },
+      {
+        "type": "image",
+        "key": "explosion4",
+        "url": "./assets/sprites/explosion4.png"
+      },
+      {
+        "type": "image",
+        "key": "explosion5",
+        "url": "./assets/sprites/explosion5.png"
       }
     ]
   }

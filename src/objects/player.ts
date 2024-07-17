@@ -154,6 +154,7 @@ export class Player extends Phaser.GameObjects.Image implements ObserverPattern.
       });
 
       if (this.bullets.getLength() < 10) {
+        this.scene.sound.play('shootSound', { volume: 0.2 });
         this.bullets.add(
           new Bullet({
             scene: this.scene,
