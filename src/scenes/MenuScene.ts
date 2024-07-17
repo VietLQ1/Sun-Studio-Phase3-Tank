@@ -12,6 +12,7 @@ export class MenuScene extends Phaser.Scene {
   }
 
   init(): void {
+    
     this.add.image(0, 0, 'background').setOrigin(0).setDisplaySize(GameConfig.width as number, GameConfig.height as number);
     this.sound.stopAll();
     if(this.sound.locked)
