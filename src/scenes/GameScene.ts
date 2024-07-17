@@ -11,6 +11,7 @@ import { PlayButton } from '../user-interface/PlayButton';
 import { HomeButton } from '../user-interface/HomeButton';
 import { SoundButton } from '../user-interface/SoundButton';
 import { HeaderContainer } from '../user-interface/HeaderContainer';
+import { PausedContainer } from '../user-interface/PausedContainer';
 
 enum gameState { PLAYING, PAUSED, GAMEOVER }
 export class GameScene extends Phaser.Scene {
@@ -305,52 +306,7 @@ export class GameScene extends Phaser.Scene {
     this.events.on('updateScore', () => {
       this.scoreText.setText('Score: ' + this.score);
     });
-    this.pausedUI = new UIContainer(this, 0, 0);
-    this.pausedUI.addImage(0, 0, 'board', undefined, GameConfig.width as number, GameConfig.height as number);
-    this.pausedUI.addText(
-      GameConfig.width as number / 2,
-      GameConfig.height as number / 2 - 200,
-      'PAUSED',
-      {
-        fontSize: '60px',
-        color: '#fff',
-        fontStyle: 'bold',
-      }
-    ).setOrigin(0.5, 0.5);
-    let resumeBtn = new ResumeButton(
-      {
-        scene: this,
-        x: GameConfig.width as number / 2,
-        y: GameConfig.height as number / 2,
-        texture: 'resumeDefault',
-    }, 'resumeHover');
-    this.pausedUI.addButton(resumeBtn);
-    let replayBtn = new PlayButton(
-      {
-        scene: this,
-        x: GameConfig.width as number / 2 + 200,
-        y: GameConfig.height as number / 2,
-        texture: 'restartDefault',
-    }, 'restartHover');
-    this.pausedUI.addButton(replayBtn);
-    let homeBtn = new HomeButton(
-      {
-        scene: this,
-        x: GameConfig.width as number / 2 - 200,
-        y: GameConfig.height as number / 2,
-        texture: 'homeDefault',
-      },
-      'homeHover'
-    );
-    this.pausedUI.addButton(homeBtn);
-    let soundBtn = new SoundButton(
-      {
-        scene: this,
-        x: 0,
-        y: GameConfig.height as number,
-        texture: 'soundDefault',
-      }).setOrigin(0, 1);
-    this.pausedUI.addButton(soundBtn);
+    this.pausedUI = new PausedContainer(this, 0, 0);
     this.hidePausedUI();
   }
   private bulletHitLayer(bullet: any): void {
