@@ -4,14 +4,10 @@ import { Obstacle } from '../objects/obstacles/Obstacle';
 import { Bullet } from '../objects/Bullet';
 import { InputHandler } from '../input/InputHandler';
 import { UIContainer } from '../user-interface/UIContainer';
-import { PauseButton } from '../user-interface/PauseButton';
 import { GameConfig } from '../config';
-import { ResumeButton } from '../user-interface/ResumeButton';
-import { PlayButton } from '../user-interface/PlayButton';
-import { HomeButton } from '../user-interface/HomeButton';
-import { SoundButton } from '../user-interface/SoundButton';
 import { HeaderContainer } from '../user-interface/HeaderContainer';
 import { PausedContainer } from '../user-interface/PausedContainer';
+import { GameOverContainer } from '../user-interface/GameOverContainer';
 
 enum gameState { PLAYING, PAUSED, GAMEOVER }
 export class GameScene extends Phaser.Scene {
@@ -170,36 +166,20 @@ export class GameScene extends Phaser.Scene {
       this.sound.add('victory', { loop: false, volume: 0.3 }).play();
     }
     this.gameState = gameState.GAMEOVER;
-    this.gameOverUI = new UIContainer(this, 0, 0);
-    this.gameOverUI.addImage(GameConfig.width as number / 4, GameConfig.height as number / 4, 'board', undefined, GameConfig.width as number / 2, GameConfig.height as number / 2);
-    this.gameOverUI.addText(GameConfig.width as number / 2, GameConfig.height as number / 2 - 200, isVictory ? 'VICTORY' : 'GAME OVER', {
-      fontSize: '60px',
-      color: '#fff',
-      fontStyle: 'bold',
-    }).setOrigin(0.5, 0.5);
-    this.gameOverUI.addText(GameConfig.width as number / 2, GameConfig.height as number / 2 + 100, 'Score: ' + this.score, {
-      fontSize: '40px',
-      color: '#fff',
-      fontStyle: 'bold',
-    }).setOrigin(0.5, 0.5);
-    let replayBtn = new PlayButton(
-      {
-        scene: this,
-        x: GameConfig.width as number / 2 + 200,
-        y: GameConfig.height as number / 2,
-        texture: 'restartDefault',
-      }, 'restartHover');
-    this.gameOverUI.addButton(replayBtn);
-    let homeBtn = new HomeButton(
-      {
-        scene: this,
-        x: GameConfig.width as number / 2 - 200,
-        y: GameConfig.height as number / 2,
-        texture: 'homeDefault',
-      },
-      'homeHover'
-    );
-    this.gameOverUI.addButton(homeBtn);
+    this.gameOverUI = new GameOverContainer(this, 0, 0);
+    // this.gameOverUI.addText(GameConfig.width as number / 2, GameConfig.height as number / 2 - 200, isVictory ? 'VICTORY' : 'GAME OVER', {
+    //   fontSize: '60px',
+    //   color: '#fff',
+    //   fontStyle: 'bold',
+    // }).setOrigin(0.5, 0.5);
+    // this.gameOverUI.addText(GameConfig.width as number / 2, GameConfig.height as number / 2 + 100, 'Score: ' + this.score, {
+    //   fontSize: '40px',
+    //   color: '#fff',
+    //   fontStyle: 'bold',
+    // }).setOrigin(0.5, 0.5);
+    (this.gameOverUI as GameOverContainer).setScore(this.score);
+    (this.gameOverUI as GameOverContainer).setTitle(isVictory ? 'VICTORY' : 'GAME OVER');
+
     this.gameOverUI.setAlpha(0);
     this.tweens.add({
       targets: this.gameOverUI,
