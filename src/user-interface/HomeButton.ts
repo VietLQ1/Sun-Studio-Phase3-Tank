@@ -15,7 +15,7 @@ export class HomeButton extends Button {
             moveBelow: true,
             onUpdate: (progress: number) => {
                 fx.progress = progress;
-            }
+            },
         });
     }
 }

@@ -127,7 +127,7 @@ export class Enemy extends Phaser.GameObjects.Image {
       this.health = 0;
       this.active = false;
     }
-    this.scene.sound.play('explosionSound', { volume: 0.2 });
+    this.scene.sound.play('explosionSound', { volume: 0.069 });
 
   }
 }

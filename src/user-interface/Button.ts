@@ -38,5 +38,6 @@ export class Button extends Phaser.GameObjects.Image
     protected onDown(): void
     {
         this.setTexture(this.defaultTexture);
+        this.scene.sound.play('button');
     }
 }

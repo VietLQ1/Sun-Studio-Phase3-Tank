@@ -33,7 +33,8 @@ export class GameScene extends Phaser.Scene {
 
   init(): void {
     this.physics.world.setFPS(144);
-    this.sound.add('gameBGM', { loop: true, volume: 0.5 }).play();
+    this.sound.stopAll();
+    this.sound.add('gameBGM', { loop: true, volume: 0.3 }).play();
     this.anims.create({
       key: 'explosion',
       frames: [
