@@ -10,6 +10,7 @@ import { ResumeButton } from '../user-interface/ResumeButton';
 import { PlayButton } from '../user-interface/PlayButton';
 import { HomeButton } from '../user-interface/HomeButton';
 import { SoundButton } from '../user-interface/SoundButton';
+import { HeaderContainer } from '../user-interface/HeaderContainer';
 
 enum gameState { PLAYING, PAUSED, GAMEOVER }
 export class GameScene extends Phaser.Scene {
@@ -295,7 +296,7 @@ export class GameScene extends Phaser.Scene {
     }, this);
   }
   private createUI(): void {
-    this.UIContainer = new UIContainer(this, 0, 0);
+    this.UIContainer = new HeaderContainer(this, 0, 0);
     this.scoreText = this.UIContainer.addText(10, 10, 'Score: 0', {
       fontSize: '50px',
       color: '#fff',
@@ -304,16 +305,6 @@ export class GameScene extends Phaser.Scene {
     this.events.on('updateScore', () => {
       this.scoreText.setText('Score: ' + this.score);
     });
-    let pauseBtn = new PauseButton(
-      {
-        scene: this,
-        x: GameConfig.width as number - 10,
-        y: 10,
-        texture: 'pauseDefault',
-      },
-      'pauseHover'
-    ).setOrigin(1, 0);
-    this.UIContainer.addButton(pauseBtn);
     this.pausedUI = new UIContainer(this, 0, 0);
     this.pausedUI.addImage(0, 0, 'board', undefined, GameConfig.width as number, GameConfig.height as number);
     this.pausedUI.addText(
