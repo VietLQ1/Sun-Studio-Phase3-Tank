@@ -1,6 +1,7 @@
 import { Bullet } from './bullet';
 import { IImageConstructor } from '../interfaces/image.interface';
 import { InputHandler } from '../input/InputHandler';
+import { GameScene } from '../scenes/game-scene';
 
 export class Player extends Phaser.GameObjects.Image implements ObserverPattern.IObserver {
   body: Phaser.Physics.Arcade.Body;
@@ -185,13 +186,25 @@ export class Player extends Phaser.GameObjects.Image implements ObserverPattern.
   }
 
   public updateHealth(): void {
+    if (this.health === 0)
+    {
+      return;
+    }
     if (this.health > 0) {
       this.health -= 0.05;
       this.redrawLifebar();
     } else {
       this.health = 0;
       this.active = false;
-      this.scene.scene.start('MenuScene');
+      this.scene.sound.play('explosionSound', { volume: 0.1 });
+      this.scene.cameras.main.shake(100, 0.01);
+      if (this.scene instanceof GameScene) {
+        let scene = this.scene as GameScene;
+        this.scene.add.sprite(this.x, this.y, 'explosion').play('explosion').on('animationcomplete', () => {
+          // this.destroy();
+          scene.gameOver(false);
+        });
+      }
     }
   }
 }

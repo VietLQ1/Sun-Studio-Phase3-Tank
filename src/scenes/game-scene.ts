@@ -160,7 +160,15 @@ export class GameScene extends Phaser.Scene {
     });
   }
   public gameOver(isVictory: boolean): void {
-    this.physics.world.remove(this.player.body);
+    if (this.player.body)
+    {
+      this.physics.world.remove(this.player.body);
+    }
+    for (let i = 0; i < this.tweens.getTweens().length; i++) {
+      this.tweens.getTweens()[i].pause();
+    }
+    
+    this.player.setActive(false);
     this.UIContainer.disableInteractive();
     this.pausedUI.disableInteractive();
     this.sound.stopAll();
@@ -202,7 +210,7 @@ export class GameScene extends Phaser.Scene {
     this.tweens.add({
       targets: this.gameOverUI,
       alpha: 1,
-      duration: 150,
+      duration: 1000,
       ease: 'Sine.easeInOut',
     }).on('complete', () => {
       this.gameOverUI.setInteractive();
@@ -376,7 +384,7 @@ export class GameScene extends Phaser.Scene {
     if (bullet instanceof Bullet && player instanceof Player)
     {
       bullet.destroy();
-      // player.updateHealth();
+      player.updateHealth();
     }
     // bullet.destroy();
     // player.updateHealth();
