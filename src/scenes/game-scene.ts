@@ -80,14 +80,6 @@ export class GameScene extends Phaser.Scene {
     this.InputHandler.attach(this.player);
     this.cameras.main.startFollow(this.player);
     this.gameState = gameState.PLAYING;
-    // this.input.keyboard!.on('keydown-SPACE', () => {
-    //   if (this.gameState === gameState.PLAYING) {
-    //     console.log('pause');
-    //     this.pauseGame();
-    //   } else if (this.gameState === gameState.PAUSED) {
-    //     this.resumeGame();
-    //   }
-    // });
   }
 
   update(): void {
@@ -212,7 +204,7 @@ export class GameScene extends Phaser.Scene {
       alpha: 1,
       duration: 1000,
       ease: 'Sine.easeInOut',
-    }).on('complete', () => {
+    }).on(Phaser.Tweens.Events.TWEEN_COMPLETE, () => {
       this.gameOverUI.setInteractive();
     });
   }
@@ -411,8 +403,8 @@ export class GameScene extends Phaser.Scene {
       alpha: 0,
       duration: 150,
       ease: 'Sine.easeInOut',
-    }).on('complete', () => {
-      console.log('hiding paused UI');
+    }).on(Phaser.Tweens.Events.TWEEN_COMPLETE, () => {
+      // console.log('hiding paused UI');
       this.UIContainer.setVisible(true);
       this.UIContainer.setInteractive();
     });
@@ -426,8 +418,8 @@ export class GameScene extends Phaser.Scene {
       alpha: 1,
       duration: 200,
       ease: 'Power3',
-    }).on('complete', () => {
-      console.log('showing paused UI');
+    }).on(Phaser.Tweens.Events.TWEEN_COMPLETE, () => {
+      // console.log('showing paused UI');
       this.pausedUI.setInteractive();
     });
   }

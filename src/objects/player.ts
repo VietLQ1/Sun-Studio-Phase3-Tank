@@ -196,7 +196,6 @@ export class Player extends Phaser.GameObjects.Image implements ObserverPattern.
     } else {
       this.health = 0;
       this.active = false;
-      this.scene.sound.play('explosionSound', { volume: 0.1 });
       this.scene.cameras.main.shake(100, 0.01);
       if (this.scene instanceof GameScene) {
         let scene = this.scene as GameScene;
@@ -206,5 +205,6 @@ export class Player extends Phaser.GameObjects.Image implements ObserverPattern.
         });
       }
     }
+    this.scene.sound.play('explosionSound', { volume: 0.069 });
   }
 }
