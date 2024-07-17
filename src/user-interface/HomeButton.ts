@@ -1,23 +1,16 @@
 import { IImageConstructor } from "../interfaces/image.interface";
 import { Button } from "./Button";
 
-export class PlayButton extends Button {
+export class HomeButton extends Button {
     constructor(aParams: IImageConstructor, overTexture: string) {
         super(aParams);
         this.overTexture = overTexture;
     }
     protected onDown() {
         super.onDown();
-        if (this.scene.scene.isActive('GameScene')) {
-            this.scene.cameras.main.once('camerafadeoutcomplete', () => {
-                this.scene.scene.stop('GameScene');
-                this.scene.scene.start('GameScene');
-            });
-            this.scene.cameras.main.fadeOut(500);
-        }
-        const fx = this.scene.cameras.main.postFX.addWipe();
+        const fx = this.scene.cameras.main.postFX.addWipe(0.3, 1, 1);
         this.scene.scene.transition({
-            target: 'GameScene',
+            target: 'MenuScene',
             duration: 500,
             moveBelow: true,
             onUpdate: (progress: number) => {

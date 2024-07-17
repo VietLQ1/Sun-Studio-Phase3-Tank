@@ -8,6 +8,7 @@ import { PauseButton } from '../user-interface/PauseButton';
 import { GameConfig } from '../config';
 import { ResumeButton } from '../user-interface/ResumeButton';
 import { PlayButton } from '../user-interface/PlayButton';
+import { HomeButton } from '../user-interface/HomeButton';
 
 enum gameState { PLAYING, PAUSED, GAMEOVER }
 export class GameScene extends Phaser.Scene {
@@ -55,6 +56,7 @@ export class GameScene extends Phaser.Scene {
 
     this.initPhysics();
     this.createUI();
+    this.cameras.main.fadeIn(500);
     this.InputHandler = new InputHandler(this);
     this.InputHandler.attach(this.player);
     this.cameras.main.startFollow(this.player);
@@ -253,6 +255,16 @@ export class GameScene extends Phaser.Scene {
         texture: 'restartDefault',
     }, 'restartHover');
     this.pausedUI.addButton(replayBtn);
+    let homeBtn = new HomeButton(
+      {
+        scene: this,
+        x: GameConfig.width as number / 2 - 200,
+        y: GameConfig.height as number / 2,
+        texture: 'homeDefault',
+      },
+      'homeHover'
+    );
+    this.pausedUI.addButton(homeBtn);
     this.hidePausedUI();
   }
   private bulletHitLayer(bullet: any): void {

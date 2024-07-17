@@ -43,7 +43,7 @@ export class MenuScene extends Phaser.Scene {
         'font',
         'TANK',
         100
-      )
+      ).setTint(0xff0000)
     );
     this.UIContainer.setY(GameConfig.height as number + this.UIContainer.height);
     this.UIContainer.disableInteractive();

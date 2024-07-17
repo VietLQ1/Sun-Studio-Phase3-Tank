@@ -65,6 +65,16 @@
       },
       {
         "type": "image",
+        "key": "homeDefault",
+        "url": "./assets/user-interface/Home/Default.png"
+      },
+      {
+        "type": "image",
+        "key": "homeHover",
+        "url": "./assets/user-interface/Home/Hover.png"
+      },
+      {
+        "type": "image",
         "key": "tankBlue",
         "url": "./assets/sprites/tank-blue.png"
       },
