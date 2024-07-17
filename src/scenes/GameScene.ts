@@ -307,8 +307,8 @@ export class GameScene extends Phaser.Scene {
     let pauseBtn = new PauseButton(
       {
         scene: this,
-        x: GameConfig.width as number,
-        y: 0,
+        x: GameConfig.width as number - 10,
+        y: 10,
         texture: 'pauseDefault',
       },
       'pauseHover'

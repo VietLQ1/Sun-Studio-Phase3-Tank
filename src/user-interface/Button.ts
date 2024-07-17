@@ -35,6 +35,7 @@ export class Button extends Phaser.GameObjects.Image
     }
     protected onOut(): void
     {
+        this.downed = false;
         this.setAlpha(1);
         this.setTexture(this.defaultTexture);
     }

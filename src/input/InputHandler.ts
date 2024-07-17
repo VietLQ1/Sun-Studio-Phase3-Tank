@@ -43,43 +43,43 @@ export class InputHandler implements ObserverPattern.ISubject {
 
     private setupInputs(): void {
         // Setup pointer inputs
-        this.scene.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+        this.scene.input.on(Phaser.Input.Events.POINTER_DOWN, (pointer: Phaser.Input.Pointer) => {
             // console.log(`Pointer down at x: ${pointer.x}, y: ${pointer.y}`);
             this.pointer = pointer;
             this.notify(); // Notify observers about the pointer event
         });
-        this.scene.input.on('pointermove', (pointer: Phaser.Input.Pointer) => {
+        this.scene.input.on(Phaser.Input.Events.POINTER_MOVE, (pointer: Phaser.Input.Pointer) => {
             //console.log(`Pointer up at x: ${pointer.x}, y: ${pointer.y}`);
             this.notify(); // Notify observers about the pointer event
         });
-        this.scene.input.on('pointerup', (pointer: Phaser.Input.Pointer) => {
+        this.scene.input.on(Phaser.Input.Events.POINTER_UP, (pointer: Phaser.Input.Pointer) => {
             //console.log(`Pointer move at x: ${pointer.x}, y: ${pointer.y}`);
             this.notify(); // Notify observers about the pointer event
         });
         // Remember to call this.notify() when an event you want to observe happens
-        this.moveKeys.up.on('down', () => {
+        this.moveKeys.up.on(Phaser.Input.Keyboard.Events.DOWN, () => {
             this.notify();
         });
-        this.moveKeys.down.on('down', () => {
+        this.moveKeys.down.on(Phaser.Input.Keyboard.Events.DOWN, () => {
             this.notify();
         });
-        this.moveKeys.left.on('down', () => {
+        this.moveKeys.left.on(Phaser.Input.Keyboard.Events.DOWN, () => {
             this.notify();
         });
-        this.moveKeys.right.on('down', () => {
+        this.moveKeys.right.on(Phaser.Input.Keyboard.Events.DOWN, () => {
             this.notify();
         });
-        this.moveKeys.up.on('up', () => {
+        this.moveKeys.up.on(Phaser.Input.Keyboard.Events.UP, () => {
             this.notify();
         }
         );
-        this.moveKeys.down.on('up', () => {
+        this.moveKeys.down.on(Phaser.Input.Keyboard.Events.UP, () => {
             this.notify();
         });
-        this.moveKeys.left.on('up', () => {
+        this.moveKeys.left.on(Phaser.Input.Keyboard.Events.UP, () => {
             this.notify();
         });
-        this.moveKeys.right.on('up', () => {
+        this.moveKeys.right.on(Phaser.Input.Keyboard.Events.UP, () => {
             this.notify();
         });
     }

@@ -27,7 +27,7 @@ export class Bullet extends Phaser.GameObjects.Image {
       this.bulletSpeed,
       this.body.velocity
     );
-    this.on('destroy', () => {
+    this.on(Phaser.GameObjects.Events.DESTROY, () => {
       // console.log('destroyed');
       let explosion = this.scene.add.sprite(this.x, this.y, 'explosion').play('explosion').on('animationcomplete', () => {
         explosion.destroy()});
