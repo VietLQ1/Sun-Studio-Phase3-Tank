@@ -27,15 +27,15 @@ export class MenuScene extends Phaser.Scene {
   }
 
   create(): void {
-    const displayZone = this.add.zone(0, 0, GameConfig.width as number, GameConfig.height as number);
     this.UIContainer = new UIContainer(this, 0, 0);
-    Phaser.Display.Align.In.Center(this.UIContainer, displayZone);
-    this.UIContainer.addButton(new PlayButton({
+    let playBtn = new PlayButton({
       scene: this,
-      x: this.sys.canvas.width / 2,
-      y: this.sys.canvas.height / 2 + 100,
+      x: 0,
+      y: 0,
       texture: 'playTextDefault',
-    }, 'playTextHover'));
+    }, 'playTextHover');
+    this.UIContainer.addButton(playBtn);
+    Phaser.Display.Align.In.Center(playBtn, this.UIContainer.DisplayZone, 0, 100);
     
     // this.bitmapTexts.push(
     //   this.add.bitmapText(
@@ -49,12 +49,12 @@ export class MenuScene extends Phaser.Scene {
 
     this.bitmapTexts.push(
       this.add.bitmapText(
-        this.sys.canvas.width / 2 - 120,
+        this.sys.canvas.width / 2 ,
         this.sys.canvas.height / 2 - 100,
         'font',
-        'TANK',
+        'TANK?',
         100
-      ).setTint(0xff0000)
+      ).setTint(0xff0000).setOrigin(0.5)
     );
     this.UIContainer.setY(GameConfig.height as number + this.UIContainer.height);
     this.UIContainer.disableInteractive();

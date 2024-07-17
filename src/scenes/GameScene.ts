@@ -165,6 +165,9 @@ export class GameScene extends Phaser.Scene {
     if (isVictory) {
       this.sound.add('victory', { loop: false, volume: 0.3 }).play();
     }
+    else {
+      this.sound.add('defeat', { loop: false, volume: 0.3 }).play();
+    }
     this.gameState = gameState.GAMEOVER;
     this.gameOverUI = new GameOverContainer(this, 0, 0);
     // this.gameOverUI.addText(GameConfig.width as number / 2, GameConfig.height as number / 2 - 200, isVictory ? 'VICTORY' : 'GAME OVER', {

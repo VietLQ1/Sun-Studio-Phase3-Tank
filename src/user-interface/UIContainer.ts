@@ -51,4 +51,7 @@ export class UIContainer extends Phaser.GameObjects.Container {
         });
         return this;
     }
+    public get DisplayZone(): Phaser.GameObjects.Zone {
+        return this.displayZone;
+    }
 }
