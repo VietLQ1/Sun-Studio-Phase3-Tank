@@ -1,6 +1,7 @@
 {
   "preload": {
     "files": [
+      
       {
         "type": "tilemapTiledJSON",
         "key": "levelMap",
@@ -11,6 +12,11 @@
         "key": "font",
         "textureURL": "./assets/font/font.png",
         "fontDataURL": "./assets/font/font.fnt"
+      },
+      {
+        "type": "image",
+        "key": "background",
+        "url": "./assets/images/tankImage.jpg"
       },
       {
         "type": "image",
@@ -46,6 +52,16 @@
         "type": "image",
         "key": "resumeHover",
         "url": "./assets/user-interface/Play/Hover.png"
+      },
+      {
+        "type": "image",
+        "key": "restartDefault",
+        "url": "./assets/user-interface/Repeat/Default.png"
+      },
+      {
+        "type": "image",
+        "key": "restartHover",
+        "url": "./assets/user-interface/Repeat/Hover.png"
       },
       {
         "type": "image",

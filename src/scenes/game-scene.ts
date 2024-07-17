@@ -7,6 +7,7 @@ import { UIContainer } from '../user-interface/UIContainer';
 import { PauseButton } from '../user-interface/PauseButton';
 import { GameConfig } from '../config';
 import { ResumeButton } from '../user-interface/ResumeButton';
+import { PlayButton } from '../user-interface/PlayButton';
 
 enum gameState { PLAYING, PAUSED, GAMEOVER }
 export class GameScene extends Phaser.Scene {
@@ -244,6 +245,14 @@ export class GameScene extends Phaser.Scene {
         texture: 'resumeDefault',
     }, 'resumeHover');
     this.pausedUI.addButton(resumeBtn);
+    let replayBtn = new PlayButton(
+      {
+        scene: this,
+        x: GameConfig.width as number / 2 + 200,
+        y: GameConfig.height as number / 2,
+        texture: 'restartDefault',
+    }, 'restartHover');
+    this.pausedUI.addButton(replayBtn);
     this.hidePausedUI();
   }
   private bulletHitLayer(bullet: any): void {

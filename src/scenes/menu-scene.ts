@@ -3,7 +3,6 @@ import { PlayButton } from "../user-interface/PlayButton";
 import { UIContainer } from "../user-interface/UIContainer";
 
 export class MenuScene extends Phaser.Scene {
-  private startKey: Phaser.Input.Keyboard.Key;
   private bitmapTexts: Phaser.GameObjects.BitmapText[] = [];
   private UIContainer: UIContainer;
   constructor() {
@@ -13,10 +12,7 @@ export class MenuScene extends Phaser.Scene {
   }
 
   init(): void {
-    this.startKey = this.input.keyboard!.addKey(
-      Phaser.Input.Keyboard.KeyCodes.S
-    );
-    this.startKey.isDown = false;
+    this.add.image(0, 0, 'background').setOrigin(0).setDisplaySize(GameConfig.width as number, GameConfig.height as number);
   }
 
   create(): void {
@@ -62,8 +58,5 @@ export class MenuScene extends Phaser.Scene {
   }
 
   update(): void {
-    if (this.startKey.isDown) {
-      this.scene.start('GameScene');
-    }
   }
 }
