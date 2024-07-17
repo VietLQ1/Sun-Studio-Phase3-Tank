@@ -1,11 +1,10 @@
-import { IBulletConstructor } from '../interfaces/bullet.interface';
 
 export class Bullet extends Phaser.GameObjects.Image {
   body: Phaser.Physics.Arcade.Body;
 
   private bulletSpeed: number;
 
-  constructor(aParams: IBulletConstructor) {
+  constructor(aParams: TankGame.IBulletConstructor) {
     super(aParams.scene, aParams.x, aParams.y, aParams.texture);
 
     this.rotation = aParams.rotation;

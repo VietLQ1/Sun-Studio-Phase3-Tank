@@ -1,8 +1,7 @@
-import { IImageConstructor } from "../interfaces/image.interface";
 import { Button } from "./Button";
 
 export class SoundButton extends Button {
-    constructor(aParams: IImageConstructor) {
+    constructor(aParams: TankGame.IImageConstructor) {
         super(aParams);
         this.defaultTexture = "soundOnDefault";
         this.overTexture = "soundOnHover";

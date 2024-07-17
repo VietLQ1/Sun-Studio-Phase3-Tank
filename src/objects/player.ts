@@ -1,7 +1,6 @@
-import { Bullet } from './bullet';
-import { IImageConstructor } from '../interfaces/image.interface';
+import { Bullet } from './Bullet';
 import { InputHandler } from '../input/InputHandler';
-import { GameScene } from '../scenes/game-scene';
+import { GameScene } from '../scenes/GameScene';
 
 export class Player extends Phaser.GameObjects.Image implements ObserverPattern.IObserver {
   body: Phaser.Physics.Arcade.Body;
@@ -36,7 +35,7 @@ export class Player extends Phaser.GameObjects.Image implements ObserverPattern.
     return this.bullets;
   }
 
-  constructor(aParams: IImageConstructor) {
+  constructor(aParams: TankGame.IImageConstructor) {
     super(aParams.scene, aParams.x, aParams.y, aParams.texture, aParams.frame);
 
     this.initImage();

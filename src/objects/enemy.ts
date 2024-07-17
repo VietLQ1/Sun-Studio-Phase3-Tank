@@ -1,5 +1,4 @@
-import { Bullet } from './bullet';
-import { IImageConstructor } from '../interfaces/image.interface';
+import { Bullet } from './Bullet';
 
 export class Enemy extends Phaser.GameObjects.Image {
   body: Phaser.Physics.Arcade.Body;
@@ -24,7 +23,7 @@ export class Enemy extends Phaser.GameObjects.Image {
     return this.bullets;
   }
 
-  constructor(aParams: IImageConstructor) {
+  constructor(aParams: TankGame.IImageConstructor) {
     super(aParams.scene, aParams.x, aParams.y, aParams.texture, aParams.frame);
 
     this.initContainer();

@@ -1,9 +1,8 @@
-import { IImageConstructor } from '../../interfaces/image.interface';
 
 export class Obstacle extends Phaser.GameObjects.Image {
   body: Phaser.Physics.Arcade.Body;
 
-  constructor(aParams: IImageConstructor) {
+  constructor(aParams: TankGame.IImageConstructor) {
     super(aParams.scene, aParams.x, aParams.y, aParams.texture);
 
     this.initImage();

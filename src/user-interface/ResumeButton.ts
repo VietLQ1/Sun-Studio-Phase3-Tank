@@ -1,9 +1,8 @@
-import { IImageConstructor } from "../interfaces/image.interface";
-import { GameScene } from "../scenes/game-scene";
+import { GameScene } from "../scenes/GameScene";
 import { Button } from "./Button";
 
 export class ResumeButton extends Button {
-    constructor(aParams: IImageConstructor, overTexture: string) {
+    constructor(aParams: TankGame.IImageConstructor, overTexture: string) {
         super(aParams);
         this.overTexture = overTexture;
     }

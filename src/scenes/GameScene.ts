@@ -1,7 +1,7 @@
-import { Player } from '../objects/player';
-import { Enemy } from '../objects/enemy';
-import { Obstacle } from '../objects/obstacles/obstacle';
-import { Bullet } from '../objects/bullet';
+import { Player } from '../objects/Player';
+import { Enemy } from '../objects/Enemy';
+import { Obstacle } from '../objects/obstacles/Obstacle';
+import { Bullet } from '../objects/Bullet';
 import { InputHandler } from '../input/InputHandler';
 import { UIContainer } from '../user-interface/UIContainer';
 import { PauseButton } from '../user-interface/PauseButton';

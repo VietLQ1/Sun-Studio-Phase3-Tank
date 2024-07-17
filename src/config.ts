@@ -1,6 +1,6 @@
-import { BootScene } from './scenes/boot-scene';
-import { GameScene } from './scenes/game-scene';
-import { MenuScene } from './scenes/menu-scene';
+import { BootScene } from './scenes/BootScene';
+import { GameScene } from './scenes/GameScene';
+import { MenuScene } from './scenes/MenuScene';
 
 export const GameConfig: Phaser.Types.Core.GameConfig = {
   title: 'Tank',

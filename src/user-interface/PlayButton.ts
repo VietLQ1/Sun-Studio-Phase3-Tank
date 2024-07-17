@@ -1,8 +1,7 @@
-import { IImageConstructor } from "../interfaces/image.interface";
 import { Button } from "./Button";
 
 export class PlayButton extends Button {
-    constructor(aParams: IImageConstructor, overTexture: string) {
+    constructor(aParams: TankGame.IImageConstructor, overTexture: string) {
         super(aParams);
         this.overTexture = overTexture;
     }

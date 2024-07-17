@@ -1,11 +1,10 @@
-import { IImageConstructor } from "../interfaces/image.interface";
 
 export class Button extends Phaser.GameObjects.Image
 {
     protected defaultTexture: string;
     protected overTexture: string;
     protected downed: boolean;
-    constructor(aParams: IImageConstructor)
+    constructor(aParams: TankGame.IImageConstructor)
     {
         super(aParams.scene, aParams.x, aParams.y, aParams.texture, aParams.frame);
         this.defaultTexture = aParams.texture;
