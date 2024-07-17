@@ -6,12 +6,17 @@ export class PlayButton extends Button {
         super(aParams);
         this.overTexture = overTexture;
     }
-    protected onDown() {
-        super.onDown();
+    protected onUp() {
+        super.onUp();
+        if (!this.downed)
+        {
+            return;
+        }
+        this.downed = false;
         if (this.scene.scene.isActive('GameScene')) {
             this.scene.cameras.main.once('camerafadeoutcomplete', () => {
-                this.scene.scene.stop('GameScene');
-                this.scene.scene.start('GameScene');
+                this.scene.scene.restart();
+                this.scene.data.reset();
             });
             this.scene.cameras.main.fadeOut(500);
         }

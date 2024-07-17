@@ -4,6 +4,7 @@ export class Button extends Phaser.GameObjects.Image
 {
     protected defaultTexture: string;
     protected overTexture: string;
+    protected downed: boolean;
     constructor(aParams: IImageConstructor)
     {
         super(aParams.scene, aParams.x, aParams.y, aParams.texture, aParams.frame);
@@ -12,6 +13,7 @@ export class Button extends Phaser.GameObjects.Image
         this.initImage();
         this.initInput();
         this.scene.add.existing(this);
+        this.downed = false;
     }
 
     protected initImage(): void
@@ -23,9 +25,10 @@ export class Button extends Phaser.GameObjects.Image
 
     protected initInput(): void
     {
-        this.on('pointerover', this.onOver, this);
-        this.on('pointerout', this.onOut, this);
-        this.on('pointerdown', this.onDown, this);
+        this.on(Phaser.Input.Events.POINTER_OVER, this.onOver, this);
+        this.on(Phaser.Input.Events.POINTER_OUT, this.onOut, this);
+        this.on(Phaser.Input.Events.POINTER_DOWN, this.onDown, this);
+        this.on(Phaser.Input.Events.POINTER_UP, this.onUp, this);
     }
     protected onOver(): void
     {
@@ -33,11 +36,19 @@ export class Button extends Phaser.GameObjects.Image
     }
     protected onOut(): void
     {
+        this.setAlpha(1);
         this.setTexture(this.defaultTexture);
     }
     protected onDown(): void
     {
-        this.setTexture(this.defaultTexture);
+        // this.setTexture(this.defaultTexture);
+        this.setAlpha(0.75);
         this.scene.sound.play('button');
+        this.downed = true;
+    }
+    protected onUp(): void
+    {
+        this.setTexture(this.defaultTexture);
+        this.setAlpha(1);
     }
 }

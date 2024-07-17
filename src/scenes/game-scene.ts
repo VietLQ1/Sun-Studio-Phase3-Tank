@@ -13,6 +13,7 @@ import { SoundButton } from '../user-interface/SoundButton';
 
 enum gameState { PLAYING, PAUSED, GAMEOVER }
 export class GameScene extends Phaser.Scene {
+  private score: number;
   private gameState: gameState;
   private InputHandler: InputHandler;
   private map: Phaser.Tilemaps.Tilemap;
@@ -25,7 +26,8 @@ export class GameScene extends Phaser.Scene {
 
   private UIContainer: UIContainer;
   private pausedUI: UIContainer;
-
+  private gameOverUI: UIContainer;
+  private scoreText: Phaser.GameObjects.Text;
   constructor() {
     super({
       key: 'GameScene'
@@ -48,6 +50,7 @@ export class GameScene extends Phaser.Scene {
       frameRate: 30,
       repeat: 0
     });
+    this.score = 0;
     // this.sound.setMute(true);
     // console.log(this.physics.world.fps);
   }
@@ -89,6 +92,9 @@ export class GameScene extends Phaser.Scene {
 
   update(): void {
     if (this.gameState !== gameState.PLAYING) return;
+    if (this.enemies.getLength() === 0) {
+      this.gameOver(true);
+    }
     this.player.update();
 
     this.enemies.getChildren().forEach((enemy: Phaser.GameObjects.GameObject) => {
@@ -107,6 +113,7 @@ export class GameScene extends Phaser.Scene {
     }, this);
   }
   public pauseGame(): void {
+    // console.log(this.enemies.getLength());
     this.gameState = gameState.PAUSED;
     let body = this.player.body as Phaser.Physics.Arcade.Body;
     body.setVelocity(0);
@@ -152,8 +159,54 @@ export class GameScene extends Phaser.Scene {
       });
     });
   }
-  public gameOver(): void {
+  public gameOver(isVictory: boolean): void {
+    this.physics.world.remove(this.player.body);
+    this.UIContainer.disableInteractive();
+    this.pausedUI.disableInteractive();
+    this.sound.stopAll();
+    if (isVictory) {
+      this.sound.add('victory', { loop: false, volume: 0.3 }).play();
+    }
     this.gameState = gameState.GAMEOVER;
+    this.gameOverUI = new UIContainer(this, 0, 0);
+    this.gameOverUI.addImage(GameConfig.width as number / 4, GameConfig.height as number / 4, 'board', undefined, GameConfig.width as number / 2, GameConfig.height as number / 2);
+    this.gameOverUI.addText(GameConfig.width as number / 2, GameConfig.height as number / 2 - 200, isVictory ? 'VICTORY' : 'GAME OVER', {
+      fontSize: '60px',
+      color: '#fff',
+      fontStyle: 'bold',
+    }).setOrigin(0.5, 0.5);
+    this.gameOverUI.addText(GameConfig.width as number / 2, GameConfig.height as number / 2 + 100, 'Score: ' + this.score, {
+      fontSize: '40px',
+      color: '#fff',
+      fontStyle: 'bold',
+    }).setOrigin(0.5, 0.5);
+    let replayBtn = new PlayButton(
+      {
+        scene: this,
+        x: GameConfig.width as number / 2 + 200,
+        y: GameConfig.height as number / 2,
+        texture: 'restartDefault',
+      }, 'restartHover');
+    this.gameOverUI.addButton(replayBtn);
+    let homeBtn = new HomeButton(
+      {
+        scene: this,
+        x: GameConfig.width as number / 2 - 200,
+        y: GameConfig.height as number / 2,
+        texture: 'homeDefault',
+      },
+      'homeHover'
+    );
+    this.gameOverUI.addButton(homeBtn);
+    this.gameOverUI.setAlpha(0);
+    this.tweens.add({
+      targets: this.gameOverUI,
+      alpha: 1,
+      duration: 150,
+      ease: 'Sine.easeInOut',
+    }).on('complete', () => {
+      this.gameOverUI.setInteractive();
+    });
   }
 
   private convertObjects(): void {
@@ -243,6 +296,14 @@ export class GameScene extends Phaser.Scene {
   }
   private createUI(): void {
     this.UIContainer = new UIContainer(this, 0, 0);
+    this.scoreText = this.UIContainer.addText(10, 10, 'Score: 0', {
+      fontSize: '50px',
+      color: '#fff',
+      fontStyle: 'bold',
+    });
+    this.events.on('updateScore', () => {
+      this.scoreText.setText('Score: ' + this.score);
+    });
     let pauseBtn = new PauseButton(
       {
         scene: this,
@@ -255,6 +316,16 @@ export class GameScene extends Phaser.Scene {
     this.UIContainer.addButton(pauseBtn);
     this.pausedUI = new UIContainer(this, 0, 0);
     this.pausedUI.addImage(0, 0, 'board', undefined, GameConfig.width as number, GameConfig.height as number);
+    this.pausedUI.addText(
+      GameConfig.width as number / 2,
+      GameConfig.height as number / 2 - 200,
+      'PAUSED',
+      {
+        fontSize: '60px',
+        color: '#fff',
+        fontStyle: 'bold',
+      }
+    ).setOrigin(0.5, 0.5);
     let resumeBtn = new ResumeButton(
       {
         scene: this,
@@ -314,8 +385,12 @@ export class GameScene extends Phaser.Scene {
   private playerBulletHitEnemy(bullet: any, enemy: any): void {
     if (bullet instanceof Bullet && enemy instanceof Enemy)
     {
+      this.score += 10;
+      // console.log('score: ' + this.score);
+      this.events.emit('updateScore');
       enemy.updateHealth();
       bullet.destroy();
+      // console.log(this.enemies.getLength());
     }
     // bullet.destroy();
     // enemy.updateHealth();

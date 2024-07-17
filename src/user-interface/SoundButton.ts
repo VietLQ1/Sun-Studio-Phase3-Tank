@@ -8,8 +8,13 @@ export class SoundButton extends Button {
         this.overTexture = "soundOnHover";
         this.setTexture(this.defaultTexture);
     }
-    onDown() {
-        super.onDown();
+    onUp() {
+        super.onUp();
+        if (!this.downed)
+        {
+            return;
+        }
+        this.downed = false;
         this.scene.sound.setMute(!this.scene.sound.mute);
         if (!this.scene.sound.mute)
         {

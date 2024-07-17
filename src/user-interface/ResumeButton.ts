@@ -7,8 +7,13 @@ export class ResumeButton extends Button {
         super(aParams);
         this.overTexture = overTexture;
     }
-    protected onDown() {
-        super.onDown();
+    protected onUp() {
+        super.onUp();
+        if (!this.downed)
+        {
+            return;
+        }
+        this.downed = false;
         if (this.scene instanceof GameScene)
         {
             this.scene.resumeGame();

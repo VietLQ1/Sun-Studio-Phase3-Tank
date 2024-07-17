@@ -31,7 +31,7 @@ export class UIContainer extends Phaser.GameObjects.Container {
     }
     public addButton(button: Button): void {
         button.setScrollFactor(0);
-        console.log(button.scrollFactorX, button.scrollFactorY);
+        // console.log(button.scrollFactorX, button.scrollFactorY);
         this.buttonList.push(button);
         this.add(button);
     }

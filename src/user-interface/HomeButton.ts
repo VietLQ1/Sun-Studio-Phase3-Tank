@@ -6,8 +6,13 @@ export class HomeButton extends Button {
         super(aParams);
         this.overTexture = overTexture;
     }
-    protected onDown() {
-        super.onDown();
+    protected onUp() {
+        super.onUp();
+        if (!this.downed)
+        {
+            return;
+        }
+        this.downed = false;
         const fx = this.scene.cameras.main.postFX.addWipe(0.3, 1, 1);
         this.scene.scene.transition({
             target: 'MenuScene',
