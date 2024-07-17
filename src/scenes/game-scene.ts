@@ -9,6 +9,7 @@ import { GameConfig } from '../config';
 import { ResumeButton } from '../user-interface/ResumeButton';
 import { PlayButton } from '../user-interface/PlayButton';
 import { HomeButton } from '../user-interface/HomeButton';
+import { SoundButton } from '../user-interface/SoundButton';
 
 enum gameState { PLAYING, PAUSED, GAMEOVER }
 export class GameScene extends Phaser.Scene {
@@ -280,6 +281,14 @@ export class GameScene extends Phaser.Scene {
       'homeHover'
     );
     this.pausedUI.addButton(homeBtn);
+    let soundBtn = new SoundButton(
+      {
+        scene: this,
+        x: 0,
+        y: GameConfig.height as number,
+        texture: 'soundDefault',
+      }).setOrigin(0, 1);
+    this.pausedUI.addButton(soundBtn);
     this.hidePausedUI();
   }
   private bulletHitLayer(bullet: any): void {

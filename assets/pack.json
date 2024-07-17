@@ -75,6 +75,26 @@
       },
       {
         "type": "image",
+        "key": "soundOnDefault",
+        "url": "./assets/user-interface/SoundOn/Default.png"
+      },
+      {
+        "type": "image",
+        "key": "soundOnHover",
+        "url": "./assets/user-interface/SoundOn/Hover.png"
+      },
+      {
+        "type": "image",
+        "key": "soundOffDefault",
+        "url": "./assets/user-interface/SoundOff/Default.png"
+      },
+      {
+        "type": "image",
+        "key": "soundOffHover",
+        "url": "./assets/user-interface/SoundOff/Hover.png"
+      },
+      {
+        "type": "image",
         "key": "tankBlue",
         "url": "./assets/sprites/tank-blue.png"
       },
