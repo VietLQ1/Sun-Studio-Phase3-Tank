@@ -28,32 +28,45 @@ export class GameOverContainer extends UIContainer {
         this.scoreText = this.addText(
             0,
             0,
-            'Score: 0',
+            'Your Score: 0',
             {
                 fontSize: '40px',
                 color: '#fff',
                 fontStyle: 'bold',
             }
         ).setOrigin(0.5, 0.5);
-        Phaser.Display.Align.In.BottomCenter(this.scoreText, this.displayZone, 0, -50);
+        Phaser.Display.Align.In.BottomCenter(this.scoreText, this.displayZone, 0, -150);
+        let highScoreText = this.addText(
+            0,
+            0,
+            'High Score: ' + localStorage.getItem('highscore'),
+            {
+                fontSize: '40px',
+                color: '#fff',
+                fontStyle: 'bold',
+            }
+        ).setOrigin(0.5, 0.5);
+        Phaser.Display.Align.In.BottomCenter(highScoreText, this.displayZone, 0, -50);
         let replayBtn = new PlayButton(
             {
                 scene: this.scene,
-                x: GameConfig.width as number / 2 + 200,
-                y: GameConfig.height as number / 2,
+                x: 0,
+                y: 0,
                 texture: 'restartDefault',
             }, 'restartHover');
         this.addButton(replayBtn);
+        Phaser.Display.Align.In.Center(replayBtn, this.displayZone, 200, 0);
         let homeBtn = new HomeButton(
             {
                 scene: this.scene,
-                x: GameConfig.width as number / 2 - 200,
-                y: GameConfig.height as number / 2,
+                x: 0,
+                y: 0,
                 texture: 'homeDefault',
             },
             'homeHover'
         );
         this.addButton(homeBtn);
+        Phaser.Display.Align.In.Center(homeBtn, this.displayZone, -200, 0);
     }
     public setScore(score: number): void {
         this.scoreText.setText(`Score: ${score}`);

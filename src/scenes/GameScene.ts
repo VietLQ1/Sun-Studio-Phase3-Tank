@@ -43,8 +43,8 @@ export class GameScene extends Phaser.Scene {
         { key: 'explosion1' },
         { key: 'explosion2' },
         { key: 'explosion3' },
-        { key: 'explosion4'},
-        { key: 'explosion5'},
+        { key: 'explosion4' },
+        { key: 'explosion5' },
       ],
       frameRate: 30,
       repeat: 0
@@ -103,6 +103,7 @@ export class GameScene extends Phaser.Scene {
           (angle + Math.PI / 2) * Phaser.Math.RAD_TO_DEG;
       }
     }, this);
+    this.updateScore();
   }
   public ignoreOnMiniMap(object: Phaser.GameObjects.GameObject): void {
     this.miniMap.ignore(object);
@@ -155,14 +156,13 @@ export class GameScene extends Phaser.Scene {
     });
   }
   public gameOver(isVictory: boolean): void {
-    if (this.player.body)
-    {
+    if (this.player.body) {
       this.physics.world.remove(this.player.body);
     }
     for (let i = 0; i < this.tweens.getTweens().length; i++) {
       this.tweens.getTweens()[i].pause();
     }
-    
+
     this.player.setActive(false);
     this.UIContainer.disableInteractive();
     this.pausedUI.disableInteractive();
@@ -323,8 +323,7 @@ export class GameScene extends Phaser.Scene {
   }
 
   private enemyBulletHitPlayer(bullet: any, player: any): void {
-    if (bullet instanceof Bullet && player instanceof Player)
-    {
+    if (bullet instanceof Bullet && player instanceof Player) {
       bullet.destroy();
       player.updateHealth();
     }
@@ -333,8 +332,7 @@ export class GameScene extends Phaser.Scene {
   }
 
   private playerBulletHitEnemy(bullet: any, enemy: any): void {
-    if (bullet instanceof Bullet && enemy instanceof Enemy)
-    {
+    if (bullet instanceof Bullet && enemy instanceof Enemy) {
       this.score += 10;
       // console.log('score: ' + this.score);
       this.events.emit('updateScore');
@@ -372,5 +370,18 @@ export class GameScene extends Phaser.Scene {
       // console.log('showing paused UI');
       this.pausedUI.setInteractive();
     });
+  }
+  private updateScore(): void {
+    let highscore = localStorage.getItem('highscore');
+    // console.log('highscore: ' + highscore);
+    if (highscore) {
+      if (this.score > parseInt(highscore)) {
+        localStorage.setItem('highscore', this.score.toString());
+      }
+    }
+    else {
+      console.log('setting highscore');
+      localStorage.setItem('highscore', this.score.toString());
+    }
   }
 }
