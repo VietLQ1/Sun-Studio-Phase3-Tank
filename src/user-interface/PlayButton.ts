@@ -19,6 +19,7 @@ export class PlayButton extends Button {
             });
             this.scene.cameras.main.fadeOut(500);
         }
+        this.scene.sound.stopAll();
         const fx = this.scene.cameras.main.postFX.addWipe();
         this.scene.scene.transition({
             target: 'GameScene',

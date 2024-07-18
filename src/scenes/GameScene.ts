@@ -185,7 +185,7 @@ export class GameScene extends Phaser.Scene {
     let chain: Phaser.Tweens.TweenChain;
     if (isVictory)
     {
-      let victoryBanner = this.add.image(GameConfig.width as number / 2, GameConfig.height as number / 2, 'victory').setScale(0).setDisplaySize(600,500).setScrollFactor(0);
+      let victoryBanner = this.add.image(GameConfig.width as number / 2, GameConfig.height as number / 2, 'victory').setScale(0).setDisplaySize(600,500).setScrollFactor(0).setDepth(5);
       this.ignoreOnMiniMap(victoryBanner);
       chain = this.tweens.chain({
         targets: victoryBanner,
@@ -200,17 +200,17 @@ export class GameScene extends Phaser.Scene {
             ease: Phaser.Math.Easing.Sine.In,
             duration: 500,
           },
-          {
-            alpha: 0,
-            ease: Phaser.Math.Easing.Sine.Out,
-            duration: 500,
-          }
+          // {
+          //   alpha: 0,
+          //   ease: Phaser.Math.Easing.Sine.Out,
+          //   duration: 500,
+          // }
         ]
       });
     }
     else
     {
-      let defeatBanner = this.add.image(GameConfig.width as number / 2, GameConfig.height as number / 2, 'defeat').setScale(0).setDisplaySize(600,500).setScrollFactor(0);
+      let defeatBanner = this.add.image(GameConfig.width as number / 2, GameConfig.height as number / 2, 'defeat').setScale(0).setDisplaySize(600,500).setScrollFactor(0).setDepth(5);
       this.ignoreOnMiniMap(defeatBanner);
       chain = this.tweens.chain({
         targets: defeatBanner,
@@ -225,11 +225,11 @@ export class GameScene extends Phaser.Scene {
             ease: Phaser.Math.Easing.Sine.In,
             duration: 500,
           },
-          {
-            alpha: 0,
-            ease: Phaser.Math.Easing.Sine.Out,
-            duration: 500,
-          }
+          // {
+          //   alpha: 0,
+          //   ease: Phaser.Math.Easing.Sine.Out,
+          //   duration: 500,
+          // }
         ]
       });
     }
@@ -237,7 +237,7 @@ export class GameScene extends Phaser.Scene {
       targets: this.gameOverUI,
       alpha: 1,
       duration: 1000,
-      delay: 1500,
+      delay: 1000,
       ease: 'Sine.easeInOut',
     }).on(Phaser.Tweens.Events.TWEEN_COMPLETE, () => {
       this.gameOverUI.setInteractive();
@@ -369,7 +369,7 @@ export class GameScene extends Phaser.Scene {
   private enemyBulletHitPlayer(bullet: any, player: any): void {
     if (bullet instanceof Bullet && player instanceof Player) {
       bullet.destroy();
-      player.updateHealth();
+      // player.updateHealth();
     }
     // bullet.destroy();
     // player.updateHealth();
