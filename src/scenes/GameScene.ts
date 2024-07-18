@@ -177,25 +177,67 @@ export class GameScene extends Phaser.Scene {
     }
     this.gameState = gameState.GAMEOVER;
     this.gameOverUI = new GameOverContainer(this, 0, 0);
-    // this.gameOverUI.addText(GameConfig.width as number / 2, GameConfig.height as number / 2 - 200, isVictory ? 'VICTORY' : 'GAME OVER', {
-    //   fontSize: '60px',
-    //   color: '#fff',
-    //   fontStyle: 'bold',
-    // }).setOrigin(0.5, 0.5);
-    // this.gameOverUI.addText(GameConfig.width as number / 2, GameConfig.height as number / 2 + 100, 'Score: ' + this.score, {
-    //   fontSize: '40px',
-    //   color: '#fff',
-    //   fontStyle: 'bold',
-    // }).setOrigin(0.5, 0.5);
     (this.gameOverUI as GameOverContainer).setScore(this.score);
     (this.gameOverUI as GameOverContainer).setTitle(isVictory ? 'VICTORY' : 'GAME OVER');
     this.ignoreOnMiniMap(this.gameOverUI);
 
     this.gameOverUI.setAlpha(0);
+    let chain: Phaser.Tweens.TweenChain;
+    if (isVictory)
+    {
+      let victoryBanner = this.add.image(GameConfig.width as number / 2, GameConfig.height as number / 2, 'victory').setScale(0).setDisplaySize(600,500).setScrollFactor(0);
+      this.ignoreOnMiniMap(victoryBanner);
+      chain = this.tweens.chain({
+        targets: victoryBanner,
+        tweens: [
+          {
+            scale: 1,
+            ease: Phaser.Math.Easing.Elastic.Out,
+            duration: 500,
+          },
+          {
+            y: GameConfig.height as number / 4,
+            ease: Phaser.Math.Easing.Sine.In,
+            duration: 500,
+          },
+          {
+            alpha: 0,
+            ease: Phaser.Math.Easing.Sine.Out,
+            duration: 500,
+          }
+        ]
+      });
+    }
+    else
+    {
+      let defeatBanner = this.add.image(GameConfig.width as number / 2, GameConfig.height as number / 2, 'defeat').setScale(0).setDisplaySize(600,500).setScrollFactor(0);
+      this.ignoreOnMiniMap(defeatBanner);
+      chain = this.tweens.chain({
+        targets: defeatBanner,
+        tweens: [
+          {
+            scale: 1,
+            ease: Phaser.Math.Easing.Elastic.Out,
+            duration: 500,
+          },
+          {
+            y: GameConfig.height as number / 4,
+            ease: Phaser.Math.Easing.Sine.In,
+            duration: 500,
+          },
+          {
+            alpha: 0,
+            ease: Phaser.Math.Easing.Sine.Out,
+            duration: 500,
+          }
+        ]
+      });
+    }
     this.tweens.add({
       targets: this.gameOverUI,
       alpha: 1,
       duration: 1000,
+      delay: 1500,
       ease: 'Sine.easeInOut',
     }).on(Phaser.Tweens.Events.TWEEN_COMPLETE, () => {
       this.gameOverUI.setInteractive();
