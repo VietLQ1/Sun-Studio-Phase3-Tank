@@ -187,6 +187,16 @@
         "type": "image",
         "key": "explosion5",
         "url": "./assets/sprites/explosion5.png"
+      },
+      {
+        "type": "image",
+        "key": "victory",
+        "url": "./assets/images/victory.png"
+      },
+      {
+        "type": "image",
+        "key": "defeat",
+        "url": "./assets/images/defeat.png"
       }
     ]
   }
