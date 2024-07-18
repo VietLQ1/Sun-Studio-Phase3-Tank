@@ -183,6 +183,16 @@ export class Player extends Phaser.GameObjects.Image implements ObserverPattern.
     this.lifeBar.lineStyle(2, 0xffffff);
     this.lifeBar.strokeRect(-this.width / 2, this.height / 2, this.width, 15);
     this.lifeBar.setDepth(1);
+    if (this.health <= 0.3 && this.health > 0.25) {
+      this.scene.tweens.add({
+        targets: this.lifeBar,
+        alpha: 0,
+        duration: 100,
+        ease: 'Power1',
+        yoyo: true,
+        repeat: -1
+      });
+    }
   }
 
   public updateHealth(): void {

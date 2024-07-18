@@ -187,6 +187,7 @@ export class GameScene extends Phaser.Scene {
     // }).setOrigin(0.5, 0.5);
     (this.gameOverUI as GameOverContainer).setScore(this.score);
     (this.gameOverUI as GameOverContainer).setTitle(isVictory ? 'VICTORY' : 'GAME OVER');
+    this.ignoreOnMiniMap(this.gameOverUI);
 
     this.gameOverUI.setAlpha(0);
     this.tweens.add({
@@ -304,6 +305,12 @@ export class GameScene extends Phaser.Scene {
     this.miniMap.startFollow(this.player, true, 0.5, 0.5);
     this.miniMap.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
     this.miniMap.setBackgroundColor(0x000000);
+    this.cameras.main.on(Phaser.Cameras.Scene2D.Events.FADE_OUT_START, () => {
+      this.miniMap.fadeOut(500);
+    });
+    this.cameras.main.on(Phaser.Cameras.Scene2D.Events.FADE_IN_START, () => {
+      this.miniMap.fadeIn(500);
+    });
   }
   private bulletHitLayer(bullet: any): void {
     if (bullet instanceof Bullet)
