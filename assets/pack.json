@@ -197,6 +197,11 @@
         "type": "image",
         "key": "defeat",
         "url": "./assets/images/defeat.png"
+      },
+      {
+        "type": "image",
+        "key": "banner",
+        "url": "./assets/images/banner.png"
       }
     ]
   }

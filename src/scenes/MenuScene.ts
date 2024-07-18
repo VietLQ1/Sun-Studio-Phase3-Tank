@@ -38,25 +38,8 @@ export class MenuScene extends Phaser.Scene {
     this.UIContainer.addButton(playBtn);
     Phaser.Display.Align.In.Center(playBtn, this.UIContainer.DisplayZone, 0, 100);
     
-    // this.bitmapTexts.push(
-    //   this.add.bitmapText(
-    //     this.sys.canvas.width / 2 - 120,
-    //     this.sys.canvas.height / 2,
-    //     'font',
-    //     'PRESS S TO PLAY',
-    //     30
-    //   )
-    // );
-
-    this.bitmapTexts.push(
-      this.add.bitmapText(
-        this.sys.canvas.width / 2 ,
-        this.sys.canvas.height / 2 - 100,
-        'font',
-        'TANK?',
-        100
-      ).setTint(0xff0000).setOrigin(0.5)
-    );
+    let banner = this.UIContainer.addImage(0, 0, 'banner').setOrigin(0.5, 0.5);
+    Phaser.Display.Align.In.Center(banner, this.UIContainer.DisplayZone, 0, -150);
     this.UIContainer.setY(GameConfig.height as number + this.UIContainer.height);
     this.UIContainer.disableInteractive();
     this.tweens.add({

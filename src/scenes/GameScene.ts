@@ -164,7 +164,6 @@ export class GameScene extends Phaser.Scene {
     for (let i = 0; i < this.tweens.getTweens().length; i++) {
       this.tweens.getTweens()[i].pause();
     }
-
     this.player.setActive(false);
     this.UIContainer.disableInteractive();
     this.pausedUI.disableInteractive();
@@ -200,11 +199,6 @@ export class GameScene extends Phaser.Scene {
             ease: Phaser.Math.Easing.Sine.In,
             duration: 500,
           },
-          // {
-          //   alpha: 0,
-          //   ease: Phaser.Math.Easing.Sine.Out,
-          //   duration: 500,
-          // }
         ]
       });
     }
@@ -225,11 +219,6 @@ export class GameScene extends Phaser.Scene {
             ease: Phaser.Math.Easing.Sine.In,
             duration: 500,
           },
-          // {
-          //   alpha: 0,
-          //   ease: Phaser.Math.Easing.Sine.Out,
-          //   duration: 500,
-          // }
         ]
       });
     }
@@ -369,7 +358,7 @@ export class GameScene extends Phaser.Scene {
   private enemyBulletHitPlayer(bullet: any, player: any): void {
     if (bullet instanceof Bullet && player instanceof Player) {
       bullet.destroy();
-      // player.updateHealth();
+      player.updateHealth();
     }
     // bullet.destroy();
     // player.updateHealth();
