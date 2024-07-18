@@ -299,7 +299,7 @@ export class GameScene extends Phaser.Scene {
     this.hidePausedUI();
   }
   private createMiniMap(): void {
-    this.miniMap = this.cameras.add(GameConfig.width as number - 300, GameConfig.height as number - 200, 300, 200).setZoom(0.1);
+    this.miniMap = this.cameras.add(GameConfig.width as number - 300, GameConfig.height as number - 200, 300, 200).setZoom(0.1).setName('miniMap');
     this.miniMap.ignore(this.UIContainer);
     this.miniMap.ignore(this.pausedUI);
     this.miniMap.startFollow(this.player, true, 0.5, 0.5);

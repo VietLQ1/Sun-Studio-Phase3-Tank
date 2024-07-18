@@ -12,6 +12,7 @@ export class HomeButton extends Button {
             return;
         }
         this.downed = false;
+        let miniMap = this.scene.cameras.getCamera('miniMap');
         const fx = this.scene.cameras.main.postFX.addWipe(0.3, 1, 1);
         this.scene.scene.transition({
             target: 'MenuScene',
@@ -19,6 +20,7 @@ export class HomeButton extends Button {
             moveBelow: true,
             onUpdate: (progress: number) => {
                 fx.progress = progress;
+                miniMap!.setSize(miniMap?.width! * (1 - progress), miniMap?.height! * (1 - progress));
             },
         });
     }
