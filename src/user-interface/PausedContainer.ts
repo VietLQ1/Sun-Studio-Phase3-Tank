@@ -11,8 +11,8 @@ export class PausedContainer extends UIContainer {
         this.initPaused();
     }
     private initPaused(): void {
-        this.displayZone.setSize(GameConfig.width as number / 1.5, GameConfig.height as number / 1.5);
-        let img = this.addImage(0, 0, 'board', undefined, GameConfig.width as number / 1.5, GameConfig.height as number / 1.5).setOrigin(0.5, 0.5);
+        this.displayZone.setSize(GameConfig.width as number / 1.8, GameConfig.height as number / 1.8);
+        let img = this.addImage(0, 0, 'board', undefined, GameConfig.width as number / 1.8, GameConfig.height as number / 1.8).setOrigin(0.5, 0.5);
         Phaser.Display.Align.In.Center(img, this.displayZone);
         let txt = this.addText(
             0,

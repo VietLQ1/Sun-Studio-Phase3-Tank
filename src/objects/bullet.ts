@@ -1,3 +1,4 @@
+import { GameScene } from "../scenes/GameScene";
 
 export class Bullet extends Phaser.GameObjects.Image {
   body: Phaser.Physics.Arcade.Body;
@@ -27,11 +28,14 @@ export class Bullet extends Phaser.GameObjects.Image {
       this.bulletSpeed,
       this.body.velocity
     );
+    let scene = this.scene as GameScene;
+    scene.ignoreOnMiniMap(this);
     this.on(Phaser.GameObjects.Events.DESTROY, () => {
       // console.log('destroyed');
       let explosion = this.scene.add.sprite(this.x, this.y, 'explosion').play('explosion').on('animationcomplete', () => {
         explosion.destroy()});
       this.body.stop();
+      scene.ignoreOnMiniMap(explosion);
     });
   }
 

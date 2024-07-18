@@ -26,6 +26,7 @@ export class GameScene extends Phaser.Scene {
   private pausedUI: UIContainer;
   private gameOverUI: UIContainer;
   private scoreText: Phaser.GameObjects.Text;
+  private miniMap: Phaser.Cameras.Scene2D.Camera;
   constructor() {
     super({
       key: 'GameScene'
@@ -73,6 +74,7 @@ export class GameScene extends Phaser.Scene {
 
     this.initPhysics();
     this.createUI();
+    this.createMiniMap();
     this.cameras.main.fadeIn(500);
     this.InputHandler = new InputHandler(this);
     this.InputHandler.attach(this.player);
@@ -101,6 +103,9 @@ export class GameScene extends Phaser.Scene {
           (angle + Math.PI / 2) * Phaser.Math.RAD_TO_DEG;
       }
     }, this);
+  }
+  public ignoreOnMiniMap(object: Phaser.GameObjects.GameObject): void {
+    this.miniMap.ignore(object);
   }
   public pauseGame(): void {
     // console.log(this.enemies.getLength());
@@ -291,6 +296,14 @@ export class GameScene extends Phaser.Scene {
     });
     this.pausedUI = new PausedContainer(this, 0, 0);
     this.hidePausedUI();
+  }
+  private createMiniMap(): void {
+    this.miniMap = this.cameras.add(GameConfig.width as number - 300, GameConfig.height as number - 200, 300, 200).setZoom(0.1);
+    this.miniMap.ignore(this.UIContainer);
+    this.miniMap.ignore(this.pausedUI);
+    this.miniMap.startFollow(this.player, true, 0.5, 0.5);
+    this.miniMap.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
+    this.miniMap.setBackgroundColor(0x000000);
   }
   private bulletHitLayer(bullet: any): void {
     if (bullet instanceof Bullet)
