@@ -12,6 +12,7 @@ export class BootScene extends Phaser.Scene {
     // set the background, create the loading and progress bar
     this.cameras.main.setBackgroundColor(0x000000);
     this.createLoadingGraphics();
+    this.input.setDefaultCursor('url(assets/images/normal.cur), pointer');
 
     // pass value to change the loading bar fill
     this.load.on(
