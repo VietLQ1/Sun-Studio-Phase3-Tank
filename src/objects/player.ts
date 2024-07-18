@@ -80,6 +80,7 @@ export class Player extends Phaser.GameObjects.Image implements ObserverPattern.
 
   update(): void {
     if (this.active) {
+      this.cursors.updateWorldPoint(this.scene.cameras.main);
       this.barrel.x = this.x;
       this.barrel.y = this.y;
       this.lifeBar.x = this.x;
