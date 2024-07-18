@@ -37,18 +37,20 @@ export class GameScene extends Phaser.Scene {
     this.physics.world.setFPS(144);
     this.sound.stopAll();
     this.sound.add('gameBGM', { loop: true, volume: 0.3 }).play();
-    this.anims.create({
-      key: 'explosion',
-      frames: [
-        { key: 'explosion1' },
-        { key: 'explosion2' },
-        { key: 'explosion3' },
-        { key: 'explosion4' },
-        { key: 'explosion5' },
-      ],
-      frameRate: 30,
-      repeat: 0
-    });
+    if (!this.anims.get('explosion')) {
+      this.anims.create({
+        key: 'explosion',
+        frames: [
+          { key: 'explosion1' },
+          { key: 'explosion2' },
+          { key: 'explosion3' },
+          { key: 'explosion4' },
+          { key: 'explosion5' },
+        ],
+        frameRate: 30,
+        repeat: 0
+      });
+    }
     this.score = 0;
     // this.sound.setMute(true);
     // console.log(this.physics.world.fps);
