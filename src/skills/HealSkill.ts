@@ -1,7 +1,12 @@
+import { Player } from "../objects/Player";
 import { UltimateSkill } from "./UltimateSkill";
 
 export class HealSkill extends UltimateSkill
 {
+    constructor(player: Player) {
+        super(player);
+        this.icon = 'heal';
+    }
     activate(): void {
         let healInterval = setInterval(() => {
             this.player.updateHealth(0.05);

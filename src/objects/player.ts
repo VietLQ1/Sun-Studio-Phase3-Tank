@@ -25,7 +25,7 @@ export class Player extends Phaser.GameObjects.Image implements ObserverPattern.
     // game objects
     private bullets: Phaser.GameObjects.Group
     private activateSkill: { mini: boolean; ultimate: boolean }
-    private cooldowns: { mini: number; ultimate: number }
+    public cooldowns: { mini: number; ultimate: number }
     // input
     private cursors: Phaser.Input.Pointer
     public onNotify(subject: ObserverPattern.ISubject): void {

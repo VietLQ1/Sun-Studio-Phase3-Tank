@@ -1,6 +1,7 @@
 import { Player } from "../objects/Player";
 
 export class UltimateSkill implements TankGame.IPlayerSkill {
+    icon: string;
     duration: number;
     cooldown: number;
     player: Player;

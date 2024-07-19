@@ -25,6 +25,7 @@ declare namespace TankGame {
         frame?: string | number;
     }
     interface IPlayerSkill {
+        icon: string;
         player: Player;
         duration: number;
         cooldown: number;
