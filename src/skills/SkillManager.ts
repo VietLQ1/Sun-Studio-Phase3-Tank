@@ -18,11 +18,11 @@ export class SkillManager extends UIContainer
     private initSkillUI(): void {
         let board = this.addImage(0, 0, 'board').setOrigin(0.5, 1).setDisplaySize(200, 100);
         Phaser.Display.Align.In.BottomCenter(board, this.displayZone, 0, 0);
-        this.miniSkill = this.addImage(0, 0, this.player.miniSkill.icon);
+        this.miniSkill = this.addImage(0, 0, this.player.miniSkill.icon).disableInteractive();
         this.miniSkillText = this.addText(0, 0, 'E', { fontSize: '32px', color: '#ffffff' });
         this.miniSkillText.setOrigin(0.5, 0.5);
         this.ultimateSkillText = this.addText(0, 0, 'SPACE', { fontSize: '32px', color: '#ffffff' });
-        this.ultimateSkill = this.addImage(0, 0, this.player.ultimateSkill.icon);
+        this.ultimateSkill = this.addImage(0, 0, this.player.ultimateSkill.icon).disableInteractive();
         Phaser.Display.Align.In.BottomCenter(this.miniSkill, this.displayZone, -50);
         Phaser.Display.Align.In.BottomCenter(this.ultimateSkill, this.displayZone, 50);
         Phaser.Display.Align.In.TopCenter(this.miniSkillText, this.miniSkill, 0, 30);

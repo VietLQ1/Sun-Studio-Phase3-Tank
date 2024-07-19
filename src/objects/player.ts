@@ -28,6 +28,7 @@ export class Player extends Phaser.GameObjects.Image implements ObserverPattern.
     public cooldowns: { mini: number; ultimate: number }
     // input
     private cursors: Phaser.Input.Pointer
+    private barTween: Phaser.Tweens.Tween
     public onNotify(subject: ObserverPattern.ISubject): void {
         if (subject instanceof InputHandler) {
             this.cursors = subject.pointer
@@ -206,7 +207,7 @@ export class Player extends Phaser.GameObjects.Image implements ObserverPattern.
         this.lifeBar.strokeRect(-this.width / 2, this.height / 2, this.width, 15)
         this.lifeBar.setDepth(1)
         if (this.health <= 0.3 && this.health > 0.25) {
-            this.scene.tweens.add({
+            this.barTween = this.scene.tweens.add({
                 targets: this.lifeBar,
                 alpha: 0,
                 duration: 100,
@@ -215,6 +216,12 @@ export class Player extends Phaser.GameObjects.Image implements ObserverPattern.
                 repeat: -1,
             })
         }
+        else if (this.barTween)
+        {
+            this.lifeBar.alpha = 1
+            this.barTween.stop()
+        }
+        
     }
 
     public updateHealth(value: number): void {
