@@ -18,8 +18,8 @@ export class Player extends Phaser.GameObjects.Image implements ObserverPattern.
     private barrel: Phaser.GameObjects.Image
     private lifeBar: Phaser.GameObjects.Graphics
 
-    private miniSkill: MiniSkill
-    private ultimateSkill: UltimateSkill
+    readonly miniSkill: MiniSkill
+    readonly ultimateSkill: UltimateSkill
 
     private direction: { up: boolean; down: boolean; left: boolean; right: boolean }
     // game objects
@@ -223,6 +223,9 @@ export class Player extends Phaser.GameObjects.Image implements ObserverPattern.
         }
         if (this.health > 0) {
             this.health += value
+            if (this.health > 1) {
+                this.health = 1
+            }
             this.redrawLifebar()
         } else {
             this.health = 0
@@ -238,9 +241,6 @@ export class Player extends Phaser.GameObjects.Image implements ObserverPattern.
                         scene.gameOver(false)
                     })
             }
-        }
-        if (this.health > 1) {
-            this.health = 1
         }
         if (value < 0) {
             this.scene.sound.play('explosionSound', { volume: 0.069 })

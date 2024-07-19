@@ -8,6 +8,7 @@ import { GameConfig } from '../config';
 import { HeaderContainer } from '../user-interface/HeaderContainer';
 import { PausedContainer } from '../user-interface/PausedContainer';
 import { GameOverContainer } from '../user-interface/GameOverContainer';
+import { SkillManager } from '../skills/SkillManager';
 
 enum gameState { PLAYING, PAUSED, GAMEOVER }
 export class GameScene extends Phaser.Scene {
@@ -23,6 +24,7 @@ export class GameScene extends Phaser.Scene {
   private obstacles: Phaser.GameObjects.Group;
 
   private UIContainer: UIContainer;
+  private skillUI: UIContainer;
   private pausedUI: UIContainer;
   private gameOverUI: UIContainer;
   private scoreText: Phaser.GameObjects.Text;
@@ -105,6 +107,7 @@ export class GameScene extends Phaser.Scene {
           (angle + Math.PI / 2) * Phaser.Math.RAD_TO_DEG;
       }
     }, this);
+    (this.skillUI as SkillManager).updateSkillUI();
     this.updateScore();
   }
   public ignoreOnMiniMap(object: Phaser.GameObjects.GameObject): void {
@@ -328,6 +331,7 @@ export class GameScene extends Phaser.Scene {
     this.events.on('updateScore', () => {
       this.scoreText.setText('Score: ' + this.score);
     });
+    this.skillUI = new SkillManager(this, 0, 0, this.player);
     this.pausedUI = new PausedContainer(this, 0, 0);
     this.hidePausedUI();
   }
