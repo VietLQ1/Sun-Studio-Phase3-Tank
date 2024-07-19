@@ -24,4 +24,10 @@ declare namespace TankGame {
         texture: string;
         frame?: string | number;
     }
+    interface IPlayerSkill {
+        player: Player;
+        duration: number;
+        cooldown: number;
+        activate(): void;
+    }
 }

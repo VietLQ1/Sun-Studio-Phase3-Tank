@@ -358,7 +358,7 @@ export class GameScene extends Phaser.Scene {
   private enemyBulletHitPlayer(bullet: any, player: any): void {
     if (bullet instanceof Bullet && player instanceof Player) {
       bullet.destroy();
-      player.updateHealth();
+      player.updateHealth(-0.05);
     }
     // bullet.destroy();
     // player.updateHealth();

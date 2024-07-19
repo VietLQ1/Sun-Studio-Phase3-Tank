@@ -4,6 +4,7 @@ export class InputHandler implements ObserverPattern.ISubject {
     public pointer: Phaser.Input.Pointer;
     // public jumpKey: Phaser.Input.Keyboard.Key;
     public moveKeys: {up: Phaser.Input.Keyboard.Key, down: Phaser.Input.Keyboard.Key, left: Phaser.Input.Keyboard.Key, right: Phaser.Input.Keyboard.Key};
+    public skillKeys: {mini: Phaser.Input.Keyboard.Key, ultimate: Phaser.Input.Keyboard.Key};
     constructor(scene: Phaser.Scene) {
         this.scene = scene;
         this.pointer = scene.input.activePointer;
@@ -13,6 +14,10 @@ export class InputHandler implements ObserverPattern.ISubject {
             down: scene.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.S),
             left: scene.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.A),
             right: scene.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.D)
+        };
+        this.skillKeys = {
+            mini: scene.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.E),
+            ultimate: scene.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
         };
         this.setupInputs();
     }
@@ -80,6 +85,12 @@ export class InputHandler implements ObserverPattern.ISubject {
             this.notify();
         });
         this.moveKeys.right.on(Phaser.Input.Keyboard.Events.UP, () => {
+            this.notify();
+        });
+        this.skillKeys.mini.on(Phaser.Input.Keyboard.Events.DOWN, () => {
+            this.notify();
+        });
+        this.skillKeys.ultimate.on(Phaser.Input.Keyboard.Events.DOWN, () => {
             this.notify();
         });
     }
