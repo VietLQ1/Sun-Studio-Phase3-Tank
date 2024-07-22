@@ -59,9 +59,9 @@ export class PausedContainer extends UIContainer {
                 scene: this.scene,
                 x: 0,
                 y: 0,
-                texture: 'soundDefault',
+                texture: 'soundOnDefault',
             });
         this.addButton(soundBtn);
-        Phaser.Display.Align.In.BottomCenter(soundBtn, this.displayZone, 0, -20);
+        Phaser.Display.Align.In.BottomCenter(soundBtn, this.displayZone, 0, -30);
     }
 }

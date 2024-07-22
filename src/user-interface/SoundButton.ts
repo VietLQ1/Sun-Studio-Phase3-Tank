@@ -5,7 +5,7 @@ export class SoundButton extends Button {
         super(aParams);
         this.defaultTexture = "soundOnDefault";
         this.overTexture = "soundOnHover";
-        this.setTexture(this.defaultTexture);
+        this.button.setTexture(this.defaultTexture);
     }
     onUp() {
         super.onUp();
@@ -18,13 +18,13 @@ export class SoundButton extends Button {
         if (!this.scene.sound.mute)
         {
             this.defaultTexture = "soundOffDefault";
-            this.setTexture("soundOffDefault");
+            this.button.setTexture("soundOffDefault");
             this.overTexture = "soundOffHover";
         }
         else
         {
             this.defaultTexture = "soundOnDefault";
-            this.setTexture("soundOnDefault");
+            this.button.setTexture("soundOnDefault");
             this.overTexture = "soundOnHover";
         }
     }
